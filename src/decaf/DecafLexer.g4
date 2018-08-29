@@ -20,16 +20,24 @@ RCURLY : '}';
 ID  :
   ('a'..'z' | 'A'..'Z')+;
 
-BOSTA  :
+ID2: 
   ('a'..'z' | 'A'..'Z' | '0'..'9');
 
 WS : [ \t\r\n]+ -> skip ;
 
 SL_COMMENT : '//' (~'\n')* '\n' -> skip;
 
-CHAR : '\'' (ESC|BOSTA) '\'';
-STRING : '"' (ESC|~'"')* '"';
+CHAR :'\'' (ESC|ID2) '\'';
+
+STRING :'"' (ESC|ID)+ '"';
 
 fragment
-ESC :  '\\' ('n'|'"');
+ESC :  '\\' ('n'|'"'|'t'|'\\');
+
+
+
+
+
+
+
 
