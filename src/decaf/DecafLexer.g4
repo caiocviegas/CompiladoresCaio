@@ -17,6 +17,8 @@ tokens
 LCURLY : '{';
 RCURLY : '}';
 
+INT : (DIGIT)+;
+
 ID : (LETRAS|'_')+;
 
 WS : [ \t\r\n]+ -> skip ;
@@ -26,6 +28,8 @@ SL_COMMENT : '//' (~'\n')* '\n' -> skip;
 CHAR :'\'' (ESC|LETRAS|DIGIT) '\'';
 
 STRING : '"' (LETRAS|DIGIT|SIMBOLOS)* '"';
+
+OP : ('-'|'+'|'*'|'/'|'&&'|'!='|'<'|'<=');
 
 fragment
 ESC :  '\\' ('n'|'t'|'\\');
