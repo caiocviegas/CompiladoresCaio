@@ -50,7 +50,7 @@ DOISPONTOS: ':';
 PONTOVIRGULA: ';';
 
 BOOLEAN : ('true'|'false');
-ID : (LETRAS|'_')+;
+ID : (LETRAS+DIGIT*|'_'|'_'DIGIT*)+;
 CHAR :'\'' (ESC|LETRAS|DIGIT) '\'';
 STRING : '"' (LETRAS|DIGIT|SIMBOLOS)* '"';
 WS : [ \t\r\n]+ -> skip ;
