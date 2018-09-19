@@ -49,10 +49,10 @@ class Main {
 								case DecafLexer.STRING:
 									type = " STRINGLITERAL";
 									break;
-								case DecafLexer.INT:
+								case DecafLexer.NUM:
 									type = " INTLITERAL";
 									break;
-								case DecafLexer.BOOLEAN:
+								case DecafLexer.TRUEFALSE:
 									type = " BOOLEANLITERAL";
 									break;
 		        			}

@@ -16,6 +16,8 @@ tokens
 
 IF: 'if';
 CALLOUT: 'callout';
+TRUEFALSE : ('true'|'false');
+BOOLEAN: 'boolean';
 CLASS: 'class';
 ELSE: 'else';
 RETURN: 'return';
@@ -24,6 +26,8 @@ FOR: 'for';
 BREAK: 'break';
 CONTINUE: 'continue';
 PROGRAM: 'Program';
+INT: 'int';
+
 
 LCURLY : '{';
 RCURLY : '}';
@@ -49,13 +53,13 @@ VIRGULA: ',';
 DOISPONTOS: ':';
 PONTOVIRGULA: ';';
 
-BOOLEAN : ('true'|'false');
+
 ID : (LETRAS+DIGIT*|'_'|'_'DIGIT*)+;
 CHAR :'\'' (ESC|LETRAS|DIGIT) '\'';
 STRING : '"' (LETRAS|DIGIT|SIMBOLOS)* '"';
 WS : [ \t\r\n]+ -> skip ;
 SL_COMMENT : '//' (~'\n')* '\n' -> skip;
-INT : (DIGIT)+;
+NUM : (DIGIT)+;
 OP : ('-'|'+'|'*'|'/'|'&&'|'!='|'<'|'<=');
 HEX : INIHEX (DIGIT|LETRAS)+;
 
