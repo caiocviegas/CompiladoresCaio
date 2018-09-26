@@ -40,6 +40,8 @@ MENOR: '<';
 MENORIGUAL: '<=';
 MAIOR: '>';
 MAIORIGUAL: '>=';
+MAISIGUAL: '+=';
+MENOSIGUAL: '-=';
 DIFERENTE: '!=';
 IGUALIGUAL: '==';
 IGUAL: '=';
@@ -52,7 +54,11 @@ RPARENT: ')';
 VIRGULA: ',';
 DOISPONTOS: ':';
 PONTOVIRGULA: ';';
+EXCLAMACAO: '!';
+PERCENT: '%';
 
+DIGIT : ( '0'..'9' );
+LETRAS : ('a'..'z' | 'A'..'Z'|'_' );
 
 ID : (LETRAS+DIGIT*|'_'|'_'DIGIT*)+;
 CHAR :'\'' (ESC|LETRAS|DIGIT) '\'';
@@ -66,14 +72,9 @@ HEX : INIHEX (DIGIT|LETRAS)+;
 fragment
 ESC :  '\\' ('n'|'t'|'\\');
 
-fragment
-LETRAS : ('a'..'z' | 'A'..'Z' );
 
 fragment
-DIGIT : ( '0'..'9' );
-
-fragment
-SIMBOLOS : (' '|'!'|'"'|'#'|'$'|'%'|'&'|'\\\''|'('|')'|'*'|'+'|','|'-'|'.'|'/'|':'|';'|'<'|'='|'>'|'?'|'@'|'['|']'|'^'|'_'|'´'|'`'|'{'|'|'|'}'|'~'|'\t'|'\\'|'\"');
+SIMBOLOS : (' '|'!'|'"'|'#'|'$'|'%'|'&'|'\\\''|'('|')'|'*'|'+'|','|'-'|'.'|'/'|':'|';'|'<'|'='|'>'|'?'|'@'|'['|']'|'^'|'´'|'`'|'{'|'|'|'}'|'~'|'\t'|'\\'|'\"');
 
 fragment
 INIHEX: '0x';
