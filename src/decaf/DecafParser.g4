@@ -10,29 +10,44 @@ options
   tokenVocab=DecafLexer;
 }
 
-program: CLASS PROGRAM LCURLY (field_decl)* (method_decl)* RCURLY PONTOVIRGULA;
+program: CLASS PROGRAM LCURLY (field_decl)* (method_decl)* RCURLY;
 
-field_decl:  tipo id | tipo id LCOLCH int_literal RCOLCH PONTOVIRGULA;
+field_decl:  (tipo id | tipo id LCOLCH int_literal RCOLCH)
+	     (VIRGULA (tipo id | tipo id LCOLCH int_literal RCOLCH))* PONTOVIRGULA;
 
-method_decl: tipo | VOID ID LPARENT tipo ID RPARENT block;
+method_decl: (tipo|VOID) id LPARENT (tipo id(VIRGULA tipo id)*)* RPARENT block;
 
-block: LCURLY (var_dec)* (stmt)* RCURLY;
+block: LCURLY var_dec* stmt* RCURLY;
 
 var_dec: (tipo id)* PONTOVIRGULA ;
 
-tipo: INT|BOOLEAN|STRING|CHAR;
+tipo: INT|BOOLEAN;
 
-stmt: location assign_op expr PONTOVIRGULA | method_call PONTOVIRGULA | IF ( expr ) block  ELSE block  | FOR id IGUAL expr PONTOVIRGULA expr block | RETURN expr PONTOVIRGULA | BREAK PONTOVIRGULA | CONTINUE PONTOVIRGULA | block ;
+stmt: location assign_op expr PONTOVIRGULA 
+      | method_call PONTOVIRGULA 
+      | IF LPARENT expr RPARENT block  (ELSE block)?  
+      | FOR id IGUAL expr VIRGULA expr block 
+      | RETURN (expr)* PONTOVIRGULA 
+      | BREAK PONTOVIRGULA 
+      | CONTINUE PONTOVIRGULA 
+      | block ;
 
 assign_op: IGUAL | MAISIGUAL | MENOSIGUAL ;
 
-method_call: method_name LPARENT (expr)* RPARENT | CALLOUT LPARENT string_literal  (callout_arg)* RPARENT ;
+method_call: method_name LPARENT (expr(VIRGULA expr)*)? RPARENT 
+		| CALLOUT LPARENT string_literal  (VIRGULA callout_arg(VIRGULA callout_arg)*)? RPARENT ;
 
 method_name: id;
 
 location: id | id LCOLCH expr RCOLCH ;
 
-expr: location | method_call | literal | expr bin_op expr | MENOS expr | EXCLAMACAO expr | LPARENT expr RPARENT ; 
+expr: location 
+	|method_call 
+	| literal 
+	| expr bin_op expr 
+	| MENOS expr 
+	| EXCLAMACAO expr 
+	| LPARENT expr RPARENT ; 
 
 callout_arg: expr | string_literal ;
 
@@ -52,13 +67,13 @@ id: ID;
 
 alpha_num: alpha | digit ;
 
-alpha: LETRAS ;
+alpha: ALFAB ;
 
-digit: DIGIT ;
+digit: NUM ;
 
 int_literal: decimal_literal | hex_literal ;
 
-decimal_literal: DIGIT DIGIT* ;
+decimal_literal: digit digit* ;
 
 hex_literal: HEX ;
 

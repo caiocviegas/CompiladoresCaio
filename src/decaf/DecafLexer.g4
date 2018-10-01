@@ -14,6 +14,7 @@ tokens
   TK_class
 }
 
+INT: 'int';
 IF: 'if';
 CALLOUT: 'callout';
 TRUEFALSE : ('true'|'false');
@@ -26,8 +27,6 @@ FOR: 'for';
 BREAK: 'break';
 CONTINUE: 'continue';
 PROGRAM: 'Program';
-INT: 'int';
-
 
 LCURLY : '{';
 RCURLY : '}';
@@ -57,24 +56,35 @@ PONTOVIRGULA: ';';
 EXCLAMACAO: '!';
 PERCENT: '%';
 
+ID : (LETRAS+DIGIT*|'_'|'_'DIGIT*)+;
+
+CHAR :'\'' (ESC|LETRAS|DIGIT) '\'';
+
+STRING : '"' (LETRAS|DIGIT|SIMBOLOS)* '"';
+
+WS : [ \t\r\n]+ -> skip ;
+
+SL_COMMENT : '//' (~'\n')* '\n' -> skip;
+
+HEX : INIHEX (DIGIT|LETRAS)+;
+
+NUM : (DIGIT)+;
+
+ALFAB: (LETRAS)+;
+
+fragment
 DIGIT : ( '0'..'9' );
+
+fragment
 LETRAS : ('a'..'z' | 'A'..'Z'|'_' );
 
-ID : (LETRAS+DIGIT*|'_'|'_'DIGIT*)+;
-CHAR :'\'' (ESC|LETRAS|DIGIT) '\'';
-STRING : '"' (LETRAS|DIGIT|SIMBOLOS)* '"';
-WS : [ \t\r\n]+ -> skip ;
-SL_COMMENT : '//' (~'\n')* '\n' -> skip;
-NUM : (DIGIT)+;
-OP : ('-'|'+'|'*'|'/'|'&&'|'!='|'<'|'<=');
-HEX : INIHEX (DIGIT|LETRAS)+;
 
 fragment
 ESC :  '\\' ('n'|'t'|'\\');
 
 
 fragment
-SIMBOLOS : (' '|'!'|'"'|'#'|'$'|'%'|'&'|'\\\''|'('|')'|'*'|'+'|','|'-'|'.'|'/'|':'|';'|'<'|'='|'>'|'?'|'@'|'['|']'|'^'|'´'|'`'|'{'|'|'|'}'|'~'|'\t'|'\\'|'\"');
+SIMBOLOS : (' '|'"'|'#'|'$'|'&'|'\\\''|'.'|'?'|'@'|'^'|'´'|'`'|'|'|'~'|'\t'|'\\'|'\"');
 
 fragment
 INIHEX: '0x';
