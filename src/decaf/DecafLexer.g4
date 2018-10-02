@@ -27,6 +27,7 @@ FOR: 'for';
 BREAK: 'break';
 CONTINUE: 'continue';
 PROGRAM: 'Program';
+FORPAR: 'forpar';
 
 LCURLY : '{';
 RCURLY : '}';

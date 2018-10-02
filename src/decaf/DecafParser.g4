@@ -10,20 +10,20 @@ options
   tokenVocab=DecafLexer;
 }
 
-program: CLASS PROGRAM LCURLY (field_decl)* (method_decl)* RCURLY;
+program: CLASS PROGRAM LCURLY field_decl* method_decl* RCURLY;
 
 field_decl:  (tipo id | tipo id LCOLCH int_literal RCOLCH)
 	     (VIRGULA (tipo id | tipo id LCOLCH int_literal RCOLCH))* PONTOVIRGULA;
 
 method_decl: (tipo|VOID) id LPARENT (tipo id(VIRGULA tipo id)*)* RPARENT block;
 
-block: LCURLY var_dec* stmt* RCURLY;
+block: LCURLY var_dec* (statement)* RCURLY;
 
 var_dec: (tipo id)* PONTOVIRGULA ;
 
-tipo: INT|BOOLEAN;
+tipo: INT|BOOLEAN|FORPAR;
 
-stmt: location assign_op expr PONTOVIRGULA 
+statement: location assign_op expr PONTOVIRGULA 
       | method_call PONTOVIRGULA 
       | IF LPARENT expr RPARENT block  (ELSE block)?  
       | FOR id IGUAL expr VIRGULA expr block 
@@ -81,6 +81,6 @@ bool_literal: TRUEFALSE ;
 
 char_literal: CHAR ;
 
-string_literal: STRING ;
+string_literal: STRING* ;
 
 
