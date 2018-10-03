@@ -27,7 +27,6 @@ FOR: 'for';
 BREAK: 'break';
 CONTINUE: 'continue';
 PROGRAM: 'Program';
-FORPAR: 'forpar';
 
 LCURLY : '{';
 RCURLY : '}';
@@ -57,11 +56,12 @@ PONTOVIRGULA: ';';
 EXCLAMACAO: '!';
 PERCENT: '%';
 
-ID : (LETRAS+DIGIT*|'_'|'_'DIGIT*)+;
 
 CHAR :'\'' (ESC|LETRAS|DIGIT) '\'';
 
 STRING : '"' (LETRAS|DIGIT|SIMBOLOS)* '"';
+
+ID : (LETRAS+DIGIT*|'_'|'_'DIGIT*)+;
 
 WS : [ \t\r\n]+ -> skip ;
 
@@ -79,13 +79,11 @@ DIGIT : ( '0'..'9' );
 fragment
 LETRAS : ('a'..'z' | 'A'..'Z'|'_' );
 
-
 fragment
 ESC :  '\\' ('n'|'t'|'\\');
 
-
 fragment
-SIMBOLOS : (' '|'"'|'#'|'$'|'&'|'\\\''|'.'|'?'|'@'|'^'|'´'|'`'|'|'|'~'|'\t'|'\\'|'\"');
+SIMBOLOS : (' '|'!'|'"'|'#'|'$'|'%'|'&'|'\\\''|'('|')'|'*'|'+'|','|'-'|'.'|'/'|':'|';'|'<'|'='|'>'|'?'|'@'|'['|']'|'^'|'_'|'´'|'`'|'{'|'|'|'}'|'~'|'\t'|'\\'|'\"');
 
 fragment
 INIHEX: '0x';
