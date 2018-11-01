@@ -8,25 +8,27 @@ options
 {
   language=Java;
   tokenVocab=DecafLexer;
-}
+}	
 
-program: CLASS PROGRAM LCURLY field_decl* method_decl* RCURLY;
+program: CLASS PROGRAM LCURLY (field_decl)* (method_decl)* RCURLY;
 
-field_decl:  (tipo id | tipo id LCOLCH int_literal RCOLCH)
-	     (VIRGULA (tipo id | tipo id LCOLCH int_literal RCOLCH))* PONTOVIRGULA;
+method_type: tipo ID;
 
-method_decl: (tipo|VOID) id LPARENT (tipo id(VIRGULA tipo id)*)* RPARENT block;
+field_decl:  (method_type (VIRGULA method_type)* |
+	      method_type LCOLCH int_literal RCOLCH (VIRGULA method_type LCOLCH int_literal RCOLCH)*) PONTOVIRGULA;
+
+method_decl: (tipo|VOID) ID LPARENT (method_type(VIRGULA method_type)*)? RPARENT block;
 
 block: LCURLY var_dec* (statement)* RCURLY;
 
-var_dec: (tipo id)* PONTOVIRGULA ;
+var_dec: method_type(VIRGULA ID)* PONTOVIRGULA ;
 
-tipo: INT|BOOLEAN|FORPAR;
+tipo: INT|BOOLEAN;
 
 statement: location assign_op expr PONTOVIRGULA 
       | method_call PONTOVIRGULA 
       | IF LPARENT expr RPARENT block  (ELSE block)?  
-      | FOR id IGUAL expr VIRGULA expr block 
+      | FOR ID IGUAL expr VIRGULA expr block 
       | RETURN (expr)* PONTOVIRGULA 
       | BREAK PONTOVIRGULA 
       | CONTINUE PONTOVIRGULA 
@@ -34,12 +36,10 @@ statement: location assign_op expr PONTOVIRGULA
 
 assign_op: IGUAL | MAISIGUAL | MENOSIGUAL ;
 
-method_call: method_name LPARENT (expr(VIRGULA expr)*)? RPARENT 
+method_call: ID LPARENT (expr(VIRGULA expr)*)? RPARENT 
 		| CALLOUT LPARENT string_literal  (VIRGULA callout_arg(VIRGULA callout_arg)*)? RPARENT ;
 
-method_name: id;
-
-location: id | id LCOLCH expr RCOLCH ;
+location: ID | ID LCOLCH expr RCOLCH ;
 
 expr: location 
 	|method_call 
@@ -62,8 +62,6 @@ eq_op: IGUALIGUAL | DIFERENTE ;
 cond_op: E | OU ;
 
 literal: int_literal | char_literal | bool_literal ;
-
-id: ID;
 
 alpha_num: alpha | digit ;
 
