@@ -21,7 +21,7 @@ method_decl: (tipo|VOID) ID LPARENT (method_type(VIRGULA method_type)*)? RPARENT
 
 block: LCURLY var_dec* (statement)* RCURLY;
 
-var_dec: method_type(VIRGULA ID)* PONTOVIRGULA ;
+var_dec: tipo ID (VIRGULA ID)* PONTOVIRGULA ;
 
 tipo: INT|BOOLEAN;
 
